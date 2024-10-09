@@ -18,12 +18,15 @@ $transformedData = [];
 foreach ($neos['data'] as $neo) {
     $transformedData[] = [
         'name' => $neo[0],             // des (Name des Objekts)
-        'distance' => number_format(round($neo[4] * 149597870.7), 0, '.', "'"),         // dist (Annäherungsdistanz)
-        'date' => $neo[3],             // cd (Kalenderdatum)
+        'distance' => round($neo[4] * 149597870.7, -2),         // dist (Annäherungsdistanz)
+        'date' => date('Y-m-d H:i:s', strtotime($neo[3])), // cd (Kalenderdatum)
         'velocity' => $neo[7],         // v_rel (relative Geschwindigkeit)
         'estimated_diameter' => (1329 / sqrt(0.2)) * pow(10, -$neo[10] / 5) * 1000        // h (geschätzter Durchmesser)
     ];
 }
+
+header('Content-Type: application/json');
+echo json_encode($transformedData, JSON_PRETTY_PRINT);
 
 // Filtere die transformierten Daten, um nur eindeutige Namen zu behalten
 $uniqueTransformedData = array_filter($transformedData, function($neo) use ($neoListDB) {
@@ -36,8 +39,8 @@ $uniqueTransformedData = array_filter($transformedData, function($neo) use ($neo
 });
 
 // Die eindeutigen transformierten Daten im JSON-Format ausgeben
-// header('Content-Type: application/json');
-// echo json_encode($uniqueTransformedData, JSON_PRETTY_PRINT);
+header('Content-Type: application/json');
+echo json_encode($uniqueTransformedData, JSON_PRETTY_PRINT);
 
 return $uniqueTransformedData;
 ?>
