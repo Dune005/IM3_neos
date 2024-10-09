@@ -3,14 +3,13 @@
 // Aktuelles Datum
 $currentDate = date('Y-m-d');
 
-// Berechne das Datum eine Woche vorher und eine Woche nachher
-$dateMin = date('Y-m-d', strtotime('-1 week', strtotime($currentDate)));
-$dateMax = date('Y-m-d', strtotime('+1 week', strtotime($currentDate)));
+// Berechne das Datum heute und ein Jahr später
+$dateMin = $currentDate;
+$dateMax = date('Y-m-d', strtotime('+1 year', strtotime($currentDate)));
 
 
 // Erstelle die URL mit dynamischen Daten
 $url = "https://ssd-api.jpl.nasa.gov/cad.api?diameter=true&date-min=$dateMin&date-max=$dateMax&body=earth";
-
 
 // Initialisiert eine cURL-Sitzung
 $ch = curl_init($url);
@@ -54,5 +53,4 @@ return $neos;
 // Zeigt die JSON-Antwort an
 print_r($neos);
 
-echo 'hallo';
 ?>

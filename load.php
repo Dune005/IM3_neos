@@ -6,7 +6,7 @@ require_once 'config.php';
 include('transform.php');
 
 // Die Prüfung auf ein Array
-if (!is_array($transformierteDaten)) {
+if (!is_array($uniqueTransformedData)) {
     echo "Error: Daten konnten nicht geladen werden oder sind nicht im richtigen Format.";
     exit; // Beende das Skript, um weitere Fehler zu vermeiden
 }
@@ -19,25 +19,21 @@ $pdo->beginTransaction();
 
 
 try {
-    // // Lösche alle Einträge in der 'weather'-Tabelle
-    // $pdo->exec("DELETE FROM weather");
 
-    // Bereite das Einfügen von Daten vor
-    // $stmt = $pdo->prepare("INSERT INTO weather (city, temperature, rain, showers, snowfall, cloudCover, weatherCondition) 
-    //                        VALUES (?, ?, ?, ?, ?, ?, ?)");
+    //Bereite das Einfügen von Daten vor
+    $stmt = $pdo->prepare("INSERT INTO neosWithCloseApproach (name, distance, date, velocity, estimated_diameter) 
+                           VALUES (?, ?, ?, ?, ?)");
 
-    // // Führe die Einfügung durch
-    // foreach ($transformierteDaten as $row) {
-    //     $stmt->execute([
-    //         $row['city'], 
-    //         $row['temperature'], 
-    //         $row['rain'], 
-    //         $row['showers'], 
-    //         $row['snowfall'], 
-    //         $row['cloudCover'], 
-    //         $row['weatherCondition'],
-    //     ]);
-    // }
+    // Führe die Einfügung durch
+    foreach ($uniqueTransformedData as $row) {
+        $stmt->execute([
+            $row['name'], 
+            $row['distance'], 
+            $row['date'],
+            $row['velocity'],
+            $row['estimated_diameter'], 
+        ]);
+    }
 
     // Transaktion abschließen
     $pdo->commit();
