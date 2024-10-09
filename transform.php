@@ -25,6 +25,6 @@ $transformedData[] = [
     // 'estimated_diameter' => (1329 / Math.sqrt(0.2)) * Math.pow(10, -$neo[10] / 5) * 1000,
 ];
 
- print_r($transformedData);
+ echo json_encode($transformedData, JSON_PRETTY_PRINT);
 
 ?>

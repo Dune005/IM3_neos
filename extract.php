@@ -54,4 +54,5 @@ return $neos;
 // Zeigt die JSON-Antwort an
 print_r($neos);
 
+echo 'hallo';
 ?>
