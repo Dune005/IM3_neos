@@ -7,8 +7,10 @@ $currentDate = date('Y-m-d');
 $dateMin = date('Y-m-d', strtotime('-1 week', strtotime($currentDate)));
 $dateMax = date('Y-m-d', strtotime('+1 week', strtotime($currentDate)));
 
+
 // Erstelle die URL mit dynamischen Daten
 $url = "https://ssd-api.jpl.nasa.gov/cad.api?diameter=true&date-min=$dateMin&date-max=$dateMax&body=earth";
+
 
 // Initialisiert eine cURL-Sitzung
 $ch = curl_init($url);
@@ -39,6 +41,7 @@ if ($http_code != 200) {
 // Dekodiert die JSON-Antwort
 $neos = json_decode($response, true);
 
+
 // Überprüft auf JSON-Fehler
 if (json_last_error() !== JSON_ERROR_NONE) {
     echo 'JSON-Fehler: ' . json_last_error_msg();
@@ -49,8 +52,6 @@ if (json_last_error() !== JSON_ERROR_NONE) {
 return $neos;
 
 // Zeigt die JSON-Antwort an
-echo '<pre>';
 print_r($neos);
-echo '</pre>';
 
 ?>
