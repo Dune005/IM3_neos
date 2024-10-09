@@ -1,6 +1,14 @@
 <?php
 
-$url = "https://api.open-meteo.com/v1/forecast?latitude=46.9481,46.8499,47.3667&longitude=7.4474,9.5329,8.55&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,rain,showers,snowfall,cloud_cover&temperature_unit=celsius&timezone=auto&forecast_days=1";
+// Aktuelles Datum
+$currentDate = date('Y-m-d');
+
+// Berechne das Datum eine Woche vorher und eine Woche nachher
+$dateMin = date('Y-m-d', strtotime('-1 week', strtotime($currentDate)));
+$dateMax = date('Y-m-d', strtotime('+1 week', strtotime($currentDate)));
+
+// Erstelle die URL mit dynamischen Daten
+$url = "https://ssd-api.jpl.nasa.gov/cad.api?diameter=true&date-min=$dateMin&date-max=$dateMax&body=earth";
 
 // Initialisiert eine cURL-Sitzung
 $ch = curl_init($url);
@@ -29,7 +37,7 @@ if ($http_code != 200) {
 }
 
 // Dekodiert die JSON-Antwort
-$locations = json_decode($response, true);
+$neos = json_decode($response, true);
 
 // Überprüft auf JSON-Fehler
 if (json_last_error() !== JSON_ERROR_NONE) {
@@ -38,10 +46,11 @@ if (json_last_error() !== JSON_ERROR_NONE) {
 }
 
 // Gibt das Array zurück
-return $locations;
+return $neos;
 
 // Zeigt die JSON-Antwort an
 echo '<pre>';
-print_r($locations);
+print_r($neos);
 echo '</pre>';
 
+?>
