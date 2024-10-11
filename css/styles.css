@@ -1,0 +1,54 @@
+/* Grundlegende Einstellungen */
+body {
+  font-family: 'Lato', sans-serif;  
+  line-height: 1.6;
+  color: #333;
+  background-image: url('/images/AdobeStock_531051578_small.jpg');   
+  margin: 0;
+  padding: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat; /* Das Bild wird nicht wiederholt */
+  background-attachment: fixed;
+  position: relative;
+
+}
+
+.overlay-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-size: cover;
+  background-position: center;
+  background-image: url('/images/AdobeStock_531051578_frei.jpg'); /* Pfad zum zweiten Bild */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.5; /* Transparenz des überlagerten Bildes */
+  pointer-events: none; /* Verhindert, dass das überlagerte Bild Interaktionen blockiert */
+  z-index: 9999; /* Hoher z-index-Wert, um sicherzustellen, dass das Bild im Vordergrund ist */
+  top: -500px; /* Verschiebt das Bild nach oben */
+}
+  
+h1 {
+  color: white; /* Textfarbe weiß */
+  font-family: "Karantina", system-ui;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 6em; /* Große Schriftgröße */
+  text-align: center; /* Horizontale Zentrierung */
+  margin-top: 200px; /* Entfernt Standard-Margin */
+  margin-bottom: 0px;
+  white-space: nowrap; /* Verhindert Zeilenumbruch */
+}
+
+
+h2 {
+  color: white; /* Textfarbe weiß */
+  font-family: "Karantina", system-ui;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 2em; /* Große Schriftgröße */
+  text-align: center; /* Horizontale Zentrierung */
+  margin-top: 0px; /* Entfernt Standard-Margin */
+}
