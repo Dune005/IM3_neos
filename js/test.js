@@ -1,3 +1,5 @@
+
+
 console.log("test.js");
 
 const apiUrl = "https://neos.klaus-klebband.ch/unload.php";
@@ -6,10 +8,8 @@ let labels = [];
 let neoCountPerDay = [];
 let neoData = [];
 
-getApiData(apiUrl);
-
+// Initialisiere den Chart
 const ctx = document.getElementById("neoChart").getContext("2d");
-
 chart = new Chart(ctx, {
     type: "bar",
     data: {
@@ -23,6 +23,9 @@ chart = new Chart(ctx, {
                 borderWidth: 1,
                 borderRadius: 5,
                 borderSkipped: false,
+                hoverBackgroundColor: 'rgba(75, 192, 192, 0.5)', // Highlight color on hover
+                hoverBorderColor: 'rgba(75, 192, 192, 1)', // Border color on hover
+                hoverBorderWidth: 2, // Border width on hover
             },
         ],
     },
@@ -70,45 +73,25 @@ chart = new Chart(ctx, {
                 },
             },
         },
+        hover: {
+            mode: 'index',
+            intersect: false,
+        },
     },
 });
 
-function getApiData(url) {
-    console.log(url);
-    fetch(url)
-        .then((response) => response.json())
-        .then((myData) => {
-            console.log(myData);
-            neoData = myData;
 
-            const today = new Date();
-            labels = [];
-            neoCountPerDay = [];
 
-            for (let i = 6; i >= 0; i--) {
-                const date = new Date(today);
-                date.setDate(today.getDate() - i);
-                labels.push(formatDate(date));
-            }
 
-            neoCountPerDay = labels.map(label => {
-                const count = neoData.filter(neo => {
-                    const neoDate = formatDate(new Date(neo.timestamp));
-                    return neoDate === label;
-                }).length;
-                return count;
-            });
 
-            chart.data.labels = labels;
-            chart.data.datasets[0].data = neoCountPerDay;
-            chart.update();
-        });
-}
 
-// Laden der Daten
+
+//START - Abfrage des gröten NEOs der letzten 7 Tage
+
+// Laden der Daten des grössten NEOs der letzten 7 Tage
 document.addEventListener('DOMContentLoaded', loadNeuentdeckung);
 
-// Funktion zum Laden der Daten 
+// Funktion zum Laden der Daten des größsten NEOs der letzten 7 Tage
 async function loadNeuentdeckung() {
     try {
         // Daten für alle NEOs der Woche von der Datenbank abrufen
@@ -161,6 +144,94 @@ console.log(biggestNeo);
     }
 }
 
+
+//ENDE - Abfrage des gröten NEOs der letzten 7 Tage
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Funktion zur Abfrage der Daten mit einem Datumsbereich
+function getApiData(url, startDate, endDate) {
+    console.log(`Daten werden von ${startDate} bis ${endDate} abgefragt`);
+    
+    fetch(`${url}?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`)
+        .then((response) => response.json())
+        .then((myData) => {
+            console.log(myData);
+            neoData = myData;
+
+            labels = [];
+            neoCountPerDay = [];
+
+            let currentDate = new Date(startDate);
+            
+            // Erstelle Labels und fülle Daten für jeden Tag im ausgewählten Zeitraum
+            while (currentDate <= endDate) {
+                labels.push(formatDate(currentDate));
+                const count = neoData.filter(neo => {
+                    const neoDate = new Date(neo.timestamp);
+                    return isSameDay(neoDate, currentDate);
+                }).length;
+                neoCountPerDay.push(count);
+                currentDate.setDate(currentDate.getDate() + 1);
+            }
+
+            // Aktualisiere den Chart
+            chart.data.labels = labels;
+            chart.data.datasets[0].data = neoCountPerDay;
+            chart.update();
+        });
+}
+
+// Hilfsfunktion, um zu prüfen, ob zwei Daten am gleichen Tag sind
+function isSameDay(date1, date2) {
+    return date1.getDate() === date2.getDate() &&
+        date1.getMonth() === date2.getMonth() &&
+        date1.getFullYear() === date2.getFullYear();
+}
+
+// Event-Handler für Dropdown-Wechsel
+function handleWeekChange() {
+    const selectedOption = document.getElementById('zeitraum').value;
+    
+    let startDate, endDate;
+
+    if (selectedOption === "letzte sieben Tage") {
+        endDate = new Date(); // Heute
+        startDate = new Date();
+        startDate.setDate(endDate.getDate() - 6);
+    } else {
+        // Berechne den Montag und Sonntag der gewählten Kalenderwoche
+        const currentDate = new Date();
+        const weekNumber = parseInt(selectedOption.replace('KW ', ''));
+        
+        // Berechne den Montag und Sonntag der gewählten Woche
+        startDate = getMondayOfWeek(weekNumber, currentDate.getFullYear());
+        endDate = new Date(startDate);
+        endDate.setDate(startDate.getDate() + 6);
+    }
+
+    getApiData(apiUrl, startDate, endDate);
+}
+
+// Berechne den Montag der gewählten Kalenderwoche
+function getMondayOfWeek(week, year) {
+    const date = new Date(year, 0, 4); // 4. Januar ist immer in der ersten Kalenderwoche
+    const dayOfWeek = date.getDay(); // Tag der Woche (0 = Sonntag, 1 = Montag, etc.)
+    const offset = dayOfWeek <= 4 ? dayOfWeek - 1 : dayOfWeek - 7; // Berechne die Differenz zum Montag der ersten Woche
+    const firstMonday = new Date(date.setDate(date.getDate() - offset));
+    return new Date(firstMonday.setDate(firstMonday.getDate() + (week - 1) * 7));
+}
+
 // Funktion zur Formatierung der Zahl
 function formatNumber(number) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "'");
@@ -181,11 +252,22 @@ function formatDate(date) {
     return isToday ? 'Heute' : `${shortWeekday}`;
 }
 
-// hier wird die Funktion aufgerufen
-document.addEventListener('DOMContentLoaded', () => {
-    getApiData(apiUrl);
-    populateWeekDropdown();
-});
+// Funktion zur Erstellung des Dropdowns
+function populateWeekDropdown() {
+    const selectElement = document.getElementById('zeitraum');
+    const currentDate = new Date();
+    for (let i = 1; i <= 5; i++) {
+        const startOfWeek = new Date(currentDate);
+        startOfWeek.setDate(currentDate.getDate() - currentDate.getDay() + 1 - (i * 7));
+        const endOfWeek = new Date(startOfWeek);
+        endOfWeek.setDate(startOfWeek.getDate() + 6);
+        const weekNumber = getWeek(startOfWeek);
+        const option = document.createElement('option');
+        option.value = `KW ${weekNumber}`;
+        option.textContent = `KW ${weekNumber}`;
+        selectElement.appendChild(option);
+    }
+}
 
 // Funktion zur Berechnung der Kalenderwoche
 function getWeek(d) {
@@ -230,20 +312,14 @@ function getWeek(d) {
     }
 }
 
+// Initialisiere Dropdown und lade Daten für die aktuelle Woche
+document.addEventListener('DOMContentLoaded', () => {
+    const today = new Date();
+    const last7DaysStart = new Date();
+    last7DaysStart.setDate(today.getDate() - 6);
+    getApiData(apiUrl, last7DaysStart, today);
+    populateWeekDropdown();
+});
 
-// Funktion zur Erstellung des Dropdowns
-function populateWeekDropdown() {
-    const selectElement = document.getElementById('zeitraum');
-    const currentDate = new Date();
-    for (let i = 1; i <= 5; i++) {
-        const startOfWeek = new Date(currentDate);
-        startOfWeek.setDate(currentDate.getDate() - currentDate.getDay() + 1 - (i * 7));
-        const endOfWeek = new Date(startOfWeek);
-        endOfWeek.setDate(startOfWeek.getDate() + 6);
-        const weekNumber = getWeek(startOfWeek);
-        const option = document.createElement('option');
-        option.value = `KW ${weekNumber}`;
-        option.textContent = `KW ${weekNumber}`;
-        selectElement.appendChild(option);
-    }
-}
+
+

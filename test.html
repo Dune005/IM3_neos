@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEOs</title>
+    <title>Astro Impact</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -45,7 +45,7 @@
 <div class="chart-container">
     <form id="myForm">
         <label for="zeitraum"></label>
-        <select id="zeitraum">
+        <select id="zeitraum" onchange="handleWeekChange()">
             <option value="letzte sieben Tage">letzte sieben Tage</option>
         </select>
     </form>
@@ -60,11 +60,11 @@
 <!-- hier wird die fetteste Neuentdeckung angezeigt -->
 <div class="info-text">
 
-    <h3>Aktuelle Annäherungen erdnaher Objekte (NEOs)</h3>
+    <h4>Aktuelle Annäherungen erdnaher Objekte (NEOs)</h3>
     <p>
         Diese Grafik zeigt die jüngsten Annäherungen von erdnahen Objekten (Near Earth Objects, NEOs) an unseren Planeten. NEOs sind Asteroiden oder Kometen, die in ihrer Umlaufbahn der Erde sehr nahe kommen können.
     </p>
-    <h3>Was ist ein "Close Approach"?</h3>
+    <h4>Was ist ein "Close Approach"?</h3>
     <p>
         Ein "Close Approach" bezeichnet das Ereignis, bei dem sich ein NEO der Erde auf eine relativ geringe Distanz nähert. Diese Distanz wird in Kilometern gemessen und variiert je nach Objekt erheblich. Es ist wichtig zu betonen, dass ein "Close Approach" nicht bedeutet, dass eine Kollision mit der Erde bevorsteht.
     </p>
