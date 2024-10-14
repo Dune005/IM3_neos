@@ -11,6 +11,7 @@ $dateMax = date('Y-m-d', strtotime('+1 year', strtotime($currentDate)));
 // Erstelle die URL mit dynamischen Daten
 $url = "https://ssd-api.jpl.nasa.gov/cad.api?diameter=true&date-min=$dateMin&date-max=$dateMax&body=earth";
 
+
 // Initialisiert eine cURL-Sitzung
 $ch = curl_init($url);
 
