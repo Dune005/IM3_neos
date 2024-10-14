@@ -21,7 +21,9 @@ if ($conn->connect_error) {
 // Abfrage der NEO-Daten für die letzten 7 Tage
 $sql = "SELECT name, distance, velocity, estimated_diameter, timestamp 
         FROM neosWithCloseApproach 
-        WHERE timestamp >= CURDATE() - INTERVAL 7 DAY";
+        WHERE timestamp >= CURDATE() - INTERVAL 7 DAY 
+        AND DATE(timestamp) != '2024-10-09'
+        AND LEFT(name, 4) = LEFT(timestamp, 4)";
 
 $result = $conn->query($sql);
 
