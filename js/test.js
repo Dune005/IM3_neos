@@ -139,5 +139,68 @@ async function createChart() {
     console.log(neoData);
 }
 
+
+
+
+document.addEventListener('DOMContentLoaded', loadNeuentdeckung);
+
+async function loadNeuentdeckung() {
+    try {
+        // Daten für alle NEOs der Woche von der Datenbank abrufen
+        const response = await fetch('https://neos.klaus-klebband.ch/unload.php');
+        const neoData = await response.json();
+
+        // Filter für Objekte der letzten 7 Tage
+        const oneWeekAgo = new Date();
+        oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+        const weeklyNeos = neoData.filter(neo => {
+            const neoDate = new Date(neo.timestamp);
+            return neoDate >= oneWeekAgo;
+        });
+
+        function getBiggestNeoByDiameter(weeklyNeos) {
+            return weeklyNeos.reduce((biggestNeo, currentNeo) => {
+                // Vergleiche den Wert von "estimated_diameter" und aktualisiere das größte Objekt
+                return parseFloat(currentNeo.estimated_diameter) > parseFloat(biggestNeo.estimated_diameter) 
+                    ? currentNeo 
+                    : biggestNeo;
+            });
+        }
+
+
+        // Aufruf der Funktion und Ausgabe des größten NEO
+const biggestNeo = getBiggestNeoByDiameter(weeklyNeos);
+console.log(biggestNeo);
+
+        
+        // Überprüfen, ob ein Objekt gefunden wurde
+        if (Object.keys(biggestNeo).length === 0) {
+            console.error('Kein NEO in den letzten 7 Tagen gefunden.');
+            return;
+        }
+
+        // Daten in die HTML-Elemente einfügen
+        document.getElementById('name').textContent = biggestNeo.name;
+        document.getElementById('distance').textContent = formatNumber(biggestNeo.distance);
+        document.getElementById('velocity').textContent = biggestNeo.velocity;
+        document.getElementById('estimated_diameter').textContent = biggestNeo.estimated_diameter;
+
+        // Zeit berechnen, wie lange das Objekt bräuchte, um die Erde zu erreichen
+        const time = (biggestNeo.distance / biggestNeo.velocity) / 3600; // Zeit in Stunden
+        document.getElementById('time').textContent = time.toFixed(2);
+        document.getElementById('velocity_time').textContent = biggestNeo.velocity;
+
+    } catch (error) {
+        console.error('Fehler beim Laden der Neuentdeckung:', error);
+    }
+}
+
+// Formatierungsfunktion für große Zahlen
+function formatNumber(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "'");
+}
+
+
 // Diagramm erstellen, wenn das Dokument geladen ist
 document.addEventListener('DOMContentLoaded', createChart);
