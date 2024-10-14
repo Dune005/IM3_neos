@@ -4,7 +4,7 @@ body {
   line-height: 1.6;
   color: #ffffffd0;
   background-image: url('/images/AdobeStock_531051578_small.jpg');   
-  margin: 0;
+  margin: 10vw;
   padding: 0;
   background-size: cover;
   background-position: center;
@@ -12,29 +12,13 @@ body {
   background-attachment: fixed;
   position: relative;
 }
-
-.overlay-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-size: cover;
-  background-position: center;
-  background-image: url('/images/AdobeStock_531051578_frei.jpg'); /* Pfad zum zweiten Bild */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0.5; /* Transparenz des überlagerten Bildes */
-  pointer-events: none; /* Verhindert, dass das überlagerte Bild Interaktionen blockiert */
-  z-index: 9999; /* Hoher z-index-Wert, um sicherzustellen, dass das Bild im Vordergrund ist */
-  top: -500px; /* Verschiebt das Bild nach oben */
-}
   
 h1 {
   color: white; /* Textfarbe weiß */
   font-family: "Karantina", system-ui;
-  font-weight: 500;
+  font-weight: 700;
   font-style: normal;
-  font-size: 6em; /* Große Schriftgröße */
+  font-size: 10em; /* Große Schriftgröße */
   text-align: center; /* Horizontale Zentrierung */
   margin-top: 200px; /* Entfernt Standard-Margin */
   margin-bottom: 0px;
@@ -44,12 +28,60 @@ h1 {
 h2 {
   color: white; /* Textfarbe weiß */
   font-family: "Karantina", system-ui;
-  font-weight: 700;
+  font-weight: 500;
   font-style: normal;
   font-size: 2em; /* Große Schriftgröße */
   text-align: center; /* Horizontale Zentrierung */
   margin-top: 0px; /* Entfernt Standard-Margin */
 }
+
+h3 {
+  color: white; /* Textfarbe weiß */
+  font-family: "Karantina", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 3em; /* Große Schriftgröße */
+  text-align: center; /* Horizontale Zentrierung */
+  margin-top: 0px; /* Entfernt Standard-Margin */
+  margin-bottom: 0px;
+}
+
+.titel_website {
+  text-align: center;
+  line-height: 1.0;
+  margin-bottom: 100px;
+}
+
+
+/* hier wird die fetteste Neuentdeckung angezeigt */
+
+.fette_neuentdeckung_container {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px auto;
+  max-width: 800px;
+  color: white;
+}
+
+#neuentdeckung_mitText {
+  display: flex;
+  align-items: center;
+}
+
+#neuentdeckung_mitText img {
+  max-width: 200px;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+
+#time {
+  color: tomato;
+}
+
+
 
 /* Container für das Diagramm */
 .chart-container {
@@ -84,6 +116,23 @@ h2 {
   h2 {
     font-size: 1.5em; /* Kleinere Schriftgröße für Tablets */
   }
+
+  .fette_neuentdeckung_container {
+    flex-direction: column;
+  }
+  .fette_neuentdeckung_container h3 {
+    margin-top: 0;
+  }
+  #neuentdeckung_mitText {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  #neuentdeckung_mitText img {
+    margin: 20px;
+  }
+  
 }
 
 @media (max-width: 480px) {

@@ -10,36 +10,55 @@
     <link href="https://fonts.googleapis.com/css2?family=Karantina:wght@300;400;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js hinzugefügt -->
+  
 </head>
 <body>
 
-<div class="overlay-image"></div>
-
-<h1>Astro Impact</h1>
-<h2>Die kosmischen Giganten sind näher als du denkst!</h2>
-
-
-<form id="myForm">
-    <label for="zeitraum"></label>
-    <select id="zeitraum">
-        <option value="letzte sieben Tage">letzte sieben Tage</option>
-    </select>
-</form>
-
-<div class="chart-container">
-    <canvas id="neoChart" style="background-color: rgba(0, 0, 0, 0.8);"></canvas> <!-- Canvas für das Diagramm -->
+<div class="titel_website">
+    <h1>Astro Impact</h1>
+    <h2>Die kosmischen Giganten sind näher als du denkst!</h2>
 </div>
 
-<div class="info-text">
+
+<div class="fette_neuentdeckung_container">
     <h3>Fetteste Neuentdeckung der Woche</h3>
-    <div id="neuentdeckung">
-        <h4>Name: <span id="name"></span></h4>
-        <p>Distanz: <span id="distance"></span> km</p>
-        <p>Geschwindigkeit: <span id="velocity"></span> km/s</p>
-        <p>Durchmesser: <span id="estimated_diameter"></span> m</p>
-        <p>Das Objekt würde etwa <span id="time"></span> Stunden benötigen, um die Erde zu erreichen, wenn es sich mit einer konstanten Geschwindigkeit von <span id="velocity_time"></span> km/s direkt auf die Erde zubewegen würde.</p>
+
+    <div id="neuentdeckung_mitText">
+        
+        <img src="images/asteroid1.gif" alt="Asteroid">
+
+        <div id="neuentdeckung">
+            <h4>Name: <span id="name"></span></h4>
+            <p>Distanz: <span id="distance"></span> km</p>
+            <p>Geschwindigkeit: <span id="velocity"></span> km/s</p>
+            <p>Durchmesser: <span id="estimated_diameter"></span> m</p>
+            <p>Das Objekt würde etwa <span id="time"></span> Stunden benötigen, um die Erde zu erreichen, wenn es sich mit einer konstanten Geschwindigkeit von <span id="velocity_time"></span> km/s direkt auf die Erde zubewegen würde.</p>
+        </div>
     </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js hinzugefügt -->
+
+<!-- hier wird der Chart eingefügt -->
+<div class="chart-container">
+    <form id="myForm">
+        <label for="zeitraum"></label>
+        <select id="zeitraum">
+            <option value="letzte sieben Tage">letzte sieben Tage</option>
+        </select>
+    </form>
+    
+    
+    <canvas id="neoChart" style="background-color: rgba(0, 0, 0, 0.8);"></canvas> <!-- Canvas für das Diagramm -->
+
+
+</div>
+
+
+<!-- hier wird die fetteste Neuentdeckung angezeigt -->
+<div class="info-text">
 
     <h3>Aktuelle Annäherungen erdnaher Objekte (NEOs)</h3>
     <p>
@@ -50,6 +69,9 @@
         Ein "Close Approach" bezeichnet das Ereignis, bei dem sich ein NEO der Erde auf eine relativ geringe Distanz nähert. Diese Distanz wird in Kilometern gemessen und variiert je nach Objekt erheblich. Es ist wichtig zu betonen, dass ein "Close Approach" nicht bedeutet, dass eine Kollision mit der Erde bevorsteht.
     </p>
 </div>
+
+
+
 
 <script src="js/test.js"></script> <!-- Dein existierendes Script -->
 <script src="js/loadNeuentdeckung.js"></script> <!-- Neues Script für die fetteste Neuentdeckung -->
