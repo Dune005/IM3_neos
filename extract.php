@@ -5,7 +5,7 @@ $currentDate = date('Y-m-d');
 
 // Berechne das Datum heute und ein Jahr später
 $dateMin = $currentDate;
-$dateMax = date('Y-m-d', strtotime('+1 year', strtotime($currentDate)));
+$dateMax = date('Y-m-d', strtotime('+4 year', strtotime($currentDate)));
 
 
 // Erstelle die URL mit dynamischen Daten
