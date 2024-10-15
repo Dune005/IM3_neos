@@ -54,17 +54,21 @@ chart = new Chart(ctx, {
         },
         plugins: {
             tooltip: {
-                callbacks: {
+                callbacks: {                    
                     label: function (context) {
+                        console.log('context', context);
+                        
                         const neosForDay = neoData.filter(neo => {
-                            const neoDate = formatDate(new Date(neo.timestamp));
+                            const neoDate = formatDate(new Date(neo.timestamp));                           
                             return neoDate === context.label;
                         });
+
+                        console.log('neosForDay', neosForDay);
 
                         if (neosForDay.length > 0) {
                             return neosForDay.map(neo => {
                                 const diameter = neo.estimated_diameter || 'unbekannt';
-                                return `Name: ${neo.name}, Distanz: ${formatNumber(neo.distance)} km, Geschwindigkeit: ${neo.velocity} km/s, Durchmesser: ${diameter} m`;
+                                return `Name: ${neo.name}, Distanz: ${formatNumber(neo.distance)} km, Geschwindigkeit: ${neo.velocity.toFixed(2)} km/s, Durchmesser: ${diameter.toFixed(1)} m`;
                             });
                         } else {
                             return `Keine NEO-Daten für diesen Tag`;
@@ -173,6 +177,7 @@ function getApiData(url, startDate, endDate) {
             neoCountPerDay = [];
 
             let currentDate = new Date(startDate);
+            console.log('currentDate', currentDate);
             
             // Erstelle Labels und fülle Daten für jeden Tag im ausgewählten Zeitraum
             while (currentDate <= endDate) {
@@ -185,6 +190,7 @@ function getApiData(url, startDate, endDate) {
                 neoCountPerDay.push(count);
                 currentDate.setDate(currentDate.getDate() + 1);
             }
+            
 
             // Aktualisiere den Chart
             chart.data.labels = labels;
@@ -250,8 +256,19 @@ function formatDate(date) {
     const [weekday, rest] = formattedDate.split(', ');
     const shortWeekday = weekday.slice(0, 2);
     const isToday = date.toDateString() === new Date().toDateString();
-    return isToday ? 'Heute' : `${shortWeekday}`;
+
+    // Prüfen, ob die Bildschirmbreite schmal ist
+    const isNarrowScreen = window.innerWidth < 1000; // Beispiel: 600px als Schwellenwert
+
+    return isToday ? 'Heute' : isNarrowScreen ? shortWeekday : `${shortWeekday}, ${date.toLocaleDateString('de-CH')}`;
 }
+
+// Event-Listener hinzufügen, um die Anzeige bei Größenänderung des Fensters zu aktualisieren
+window.addEventListener('resize', () => {
+    // Aktualisiere den Chart, um die neuen Datumsformate zu berücksichtigen
+    chart.data.labels = labels.map(label => formatDate(new Date(label)));
+    chart.update();
+});
 
 // Funktion zur Erstellung des Dropdowns
 function populateWeekDropdown() {
