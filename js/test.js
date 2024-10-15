@@ -131,13 +131,13 @@ console.log(biggestNeo);
         // Daten in die HTML-Elemente einfügen
         document.getElementById('name').textContent = biggestNeo.name;
         document.getElementById('distance').textContent = formatNumber(biggestNeo.distance);
-        document.getElementById('velocity').textContent = biggestNeo.velocity;
-        document.getElementById('estimated_diameter').textContent = biggestNeo.estimated_diameter;
+        document.getElementById('velocity').textContent = biggestNeo.velocity.toFixed(2);
+        document.getElementById('estimated_diameter').textContent = Number(biggestNeo.estimated_diameter).toFixed(1);
 
         // Zeit berechnen, wie lange das Objekt bräuchte, um die Erde zu erreichen
         const time = Math.round((biggestNeo.distance / biggestNeo.velocity) / 3600); // Zeit in Stunden
         document.getElementById('time').textContent = time;
-        document.getElementById('velocity_time').textContent = biggestNeo.velocity;
+        document.getElementById('velocity_time').textContent = biggestNeo.velocity.toFixed(1);
 
     } catch (error) {
         console.error('Fehler beim Laden der Neuentdeckung:', error);
@@ -166,7 +166,7 @@ function getApiData(url, startDate, endDate) {
     fetch(`${url}?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`)
         .then((response) => response.json())
         .then((myData) => {
-            console.log(myData);
+            console.log("DATA" + myData);
             neoData = myData;
 
             labels = [];
@@ -177,10 +177,11 @@ function getApiData(url, startDate, endDate) {
             // Erstelle Labels und fülle Daten für jeden Tag im ausgewählten Zeitraum
             while (currentDate <= endDate) {
                 labels.push(formatDate(currentDate));
-                const count = neoData.filter(neo => {
-                    const neoDate = new Date(neo.timestamp);
+                let count = neoData.filter(neo => {
+                    let neoDate = new Date(neo.timestamp);
                     return isSameDay(neoDate, currentDate);
                 }).length;
+                console.log(`Anzahl der NEOs am ${currentDate}:`, count);
                 neoCountPerDay.push(count);
                 currentDate.setDate(currentDate.getDate() + 1);
             }
