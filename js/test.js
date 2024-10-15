@@ -38,17 +38,31 @@ chart = new Chart(ctx, {
                 barPercentage: 0.5,
                 categoryPercentage: 0.5,
                 ticks: {
+                    color: 'white', // Farbe der X-Achsenbeschriftungen
+                    font: {
+                        size: 14,
+                    },
                     callback: function (value) {
                         const label = this.getLabelForValue(value);
                         return label.split('\n').join(' ');
                     },
                 },
+                grid: {
+                    color: 'rgba(255, 255, 255, 0.2)', // Farbe der X-Achsen-Hilfslinien
+                },
             },
             y: {
                 beginAtZero: true,
                 ticks: {
+                    color: 'white', // Farbe der Y-Achsenbeschriftungen
+                    font: {
+                        size: 14,
+                    },
                     stepSize: 1,
                     max: Math.max(...neoCountPerDay),
+                },
+                grid: {
+                    color: 'rgba(255, 255, 255, 0.2)', // Farbe der Y-Achsen-Hilfslinien
                 },
             },
         },
@@ -75,6 +89,8 @@ chart = new Chart(ctx, {
                         }
                     },
                 },
+                titleColor: 'white', // Farbe des Tooltip-Titels
+                bodyColor: 'white', // Farbe des Tooltip-Textes
             },
         },
         hover: {
