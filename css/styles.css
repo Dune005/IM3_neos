@@ -3,13 +3,14 @@ body {
   font-family: 'Lato', sans-serif;  
   line-height: 1.6;
   color: #ffffffd0;
+  background-color: black; /* Hintergrundfarbe Schwarz */
   background-image: url('/images/AdobeStock_531051578_small.jpg');   
   margin: 10vw;
   padding: 0;
-  background-size: cover;
-  background-position: center;
+  background-size: 100%;
+  background-position: center top -135px; /* Bild 200px nach oben verschieben */
   background-repeat: no-repeat; /* Das Bild wird nicht wiederholt */
-  background-attachment: fixed;
+  background-attachment: scroll;
   position: relative;
 }
   
@@ -51,6 +52,7 @@ h3 {
   text-align: center;
   line-height: 1.0;
   margin-bottom: 100px;
+  font-size: 18px;
 }
 
 
@@ -85,9 +87,18 @@ h3 {
   margin-right: 50px;
 }
 
+#neuentdeckung_infos p {
+  line-height: 0.8; /* Beispielwert für den Zeilenabstand */
+}
+
+#neuentdeckung_infos p span {
+  font-weight: bold;
+}
+
 #time {
   color: tomato;
 }
+
 
 
 
@@ -103,6 +114,18 @@ h3 {
   max-width: 800px;
   text-align: left;
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* Media Queries für kleinere Bildschirme */
 @media (max-width: 768px) {
@@ -147,6 +170,15 @@ h3 {
     font-size: 2em;
   }
 
+  body {
+    background-position: center top -100px; /* Bild weiter nach unten verschieben */
+  }
+
+  .titel_website {
+    font-size: 12px;
+  }
+
+
 
 }
 
@@ -169,7 +201,11 @@ h3 {
   }
 
   .titel_website {
-    scale: 1.5;
+    font-size: 20px;
+  }
+
+  body {
+    background-position: center top 0px; /* Bild noch weiter nach unten verschieben */
   }
 
 }

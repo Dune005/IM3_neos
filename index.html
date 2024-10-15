@@ -3,44 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NEOs</title>
+    <title>Astro Impact</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Karantina:wght@300;400;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js hinzugefügt -->
+  
 </head>
 <body>
 
-<div class="overlay-image"></div>
-
-<h1>Astro Impact</h1>
-<h2>Die kosmischen Giganten sind näher als du denkst!</h2>
-
-<div class="chart-container">
-    <canvas id="neoChart" style="background-color: rgba(0, 0, 0, 0.8);"></canvas> <!-- Canvas für das Diagramm -->
+<div class="titel_website">
+    <h1>Astro Impact</h1>
+    <h2>Die kosmischen Giganten sind näher als du denkst!</h2>
 </div>
+
+
+
+
+<!-- hier wird die fetteste Neuentdeckung angezeigt -->
+<div class="fette_neuentdeckung_container">
+    <h3>Fetteste Neuentdeckung der Woche</h3>
+
+    <div id="neuentdeckung_mitText">
+        
+        <img src="images/asteroid1.gif" alt="Asteroid">
+
+        <div id="neuentdeckung_infos">
+            <p>Name: <span id="name"></span></p>
+            <p>Distanz: <span id="distance"></span> km</p>
+            <p>Geschwindigkeit: <span id="velocity"></span> km/s</p>
+            <p>Durchmesser: <span id="estimated_diameter"></span> m</p>
+            <br>
+            <p style="line-height: 1.5;">Das Objekt würde etwa <span id="time"></span> Stunden benötigen, um die Erde zu erreichen, wenn es sich mit einer konstanten Geschwindigkeit von <br> <span id="velocity_time"></span> km/s direkt auf die Erde zubewegen würde.</p>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js hinzugefügt -->
+
 
 <div class="info-text">
-    <h3>Aktuelle Annäherungen erdnaher Objekte (NEOs)</h3>
+
+    <h4>Aktuelle Annäherungen erdnaher Objekte (NEOs)</h4>
     <p>
-        Diese Grafik zeigt die jüngsten Annäherungen von erdnahen Objekten (Near Earth Objects, NEOs) an unseren Planeten. NEOs sind Asteroiden oder Kometen, die in ihrer Umlaufbahn der Erde sehr nahe kommen können.
+        Dies nachfolgende Grafik zeigt die jüngsten Annäherungen von erdnahen Objekten (Near Earth Objects, NEOs) an unseren Planeten. NEOs sind Asteroiden oder Kometen, die in ihrer Umlaufbahn der Erde sehr nahe kommen können.
     </p>
-    <h3>Was ist ein "Close Approach"?</h3>
+
+</div>
+
+<!-- hier wird der Chart eingefügt -->
+<div class="chart-container">
+    <form id="myForm">
+        <label for="zeitraum"></label>
+        <select id="zeitraum" onchange="handleWeekChange()">
+            <option value="letzte sieben Tage">letzte sieben Tage</option>
+        </select>
+    </form>
+    
+    <canvas id="neoChart" style="background-color: rgba(0, 0, 0, 0.8);"></canvas> <!-- Canvas für das Diagramm -->
+
+</div>
+
+<!-- hier kommt der Infotext -->
+
+<div class="info-text">
+
+    <h4>Was ist ein "Close Approach"?</h4>
     <p>
-        Ein "Close Approach" bezeichnet das Ereignis, bei dem sich ein NEO der Erde auf eine relativ geringe Distanz nähert. Diese Distanz wird in Kilometern gemessen und variiert je nach Objekt erheblich. Es ist wichtig zu betonen, dass ein "Close Approach" nicht bedeutet, dass eine Kollision mit der Erde bevorsteht. Vielmehr handelt es sich um ein astronomisches Ereignis, das uns wertvolle Daten über diese Himmelskörper liefert.
+        Ein "Close Approach" bezeichnet das Ereignis, bei dem sich ein NEO der Erde auf eine relativ geringe Distanz nähert. Diese Distanz wird in Kilometern gemessen und variiert je nach Objekt erheblich. Es ist wichtig zu betonen, dass ein "Close Approach" nicht bedeutet, dass eine Kollision mit der Erde bevorsteht.
     </p>
-    <h3>Darstellung der Daten</h3>
-    <p>
-        In dieser Grafik werden pro Tag nur die neu erfassten "Close Approaches" dargestellt. Dies ermöglicht einen klaren Überblick über die jüngsten Aktivitäten in unserer kosmischen Nachbarschaft. Für jedes Objekt werden wichtige Informationen wie Name, Entfernung zur Erde, Datum und Uhrzeit der größten Annäherung, Geschwindigkeit und geschätzter Durchmesser angezeigt.
-        Die dargestellten Daten helfen Wissenschaftlern, die Bewegungen und Eigenschaften dieser Objekte besser zu verstehen und tragen zur Verbesserung unserer Fähigkeiten bei, potenzielle Risiken frühzeitig zu erkennen und einzuschätzen.
-        Durch die regelmäßige Aktualisierung dieser Grafik können Sie die faszinierende Dynamik der erdnahen Objekte verfolgen und einen Einblick in die ständige Überwachung unseres kosmischen Umfelds gewinnen.
-    </p>
+
+    <img src="images/close_approach_explanation_1.jpg" alt="Grafik mit Erklärung Close Approach" style="width: 100%; margin: 20px 0; display: block;">
+
+
 </div>
 
 
-<script src="js/script.js"></script> <!-- Neues Script für das Chart.js Diagramm -->
+
+
+<script src="js/script.js"></script> <!-- Dein existierendes Script -->
 </body>
 </html>
