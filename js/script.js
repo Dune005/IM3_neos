@@ -271,7 +271,7 @@ function formatDate(date) {
     const isToday = date.toDateString() === new Date().toDateString();
 
     // Prüfen, ob die Bildschirmbreite schmal ist
-    const isNarrowScreen = window.innerWidth < 1000; // Beispiel: 600px als Schwellenwert
+    const isNarrowScreen = window.innerWidth < 1000; // 1000px als Schwellenwert
 
     return isToday ? 'Heute' : isNarrowScreen ? shortWeekday : `${shortWeekday}, ${date.toLocaleDateString('de-CH')}`;
 }
