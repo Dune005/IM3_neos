@@ -202,7 +202,7 @@ function formatDateCA(date) {
 }
 
 
-
+let dateLabels = [];
 // Funktion zur Abfrage der Daten mit einem Datumsbereich
 function getApiData(url, startDate, endDate) {
     console.log(`Daten werden von ${startDate} bis ${endDate} abgefragt`);
@@ -210,27 +210,29 @@ function getApiData(url, startDate, endDate) {
     fetch(`${url}?startDate=${startDate.toISOString()}&endDate=${endDate.toISOString()}`)
         .then((response) => response.json())
         .then((myData) => {
-            console.log("DATA" + myData);
             neoData = myData;
 
             labels = [];
             neoCountPerDay = [];
 
             let currentDate = new Date(startDate);
-            console.log('currentDate', currentDate);
             
+            dateLabels = [];
             // Erstelle Labels und fülle Daten für jeden Tag im ausgewählten Zeitraum
             while (currentDate <= endDate) {
-                labels.push(formatDate(currentDate));
+                let abc = "" + currentDate;
+                console.log('abc', abc);
+                dateLabels.push(abc);
+                labels = getLabels(dateLabels);
                 let count = neoData.filter(neo => {
                     let neoDate = new Date(neo.timestamp);
                     return isSameDay(neoDate, currentDate);
                 }).length;
-                console.log(`Anzahl der NEOs am ${currentDate}:`, count);
+               // console.log(`Anzahl der NEOs am ${currentDate}:`, count);
                 neoCountPerDay.push(count);
                 currentDate.setDate(currentDate.getDate() + 1);
             }
-            
+            console.log('dateLabels', dateLabels);
 
             // Aktualisiere den Chart
             chart.data.labels = labels;
@@ -286,6 +288,8 @@ function formatNumber(number) {
 
 // Funktion zur Formatierung des Datums
 function formatDate(date) {
+
+    let returndate = "";
     const options = {
         weekday: 'short',
         day: 'numeric',
@@ -301,14 +305,26 @@ function formatDate(date) {
     const isNarrowScreen = window.innerWidth < 1000; // 1000px als Schwellenwert
 
     return isToday ? 'Heute' : isNarrowScreen ? shortWeekday : `${shortWeekday}, ${date.toLocaleDateString('de-CH')}`;
+    
+}
+
+function getLabels(arr) {
+    const tempLabels = [];
+    arr.forEach((tempdate) => {
+         tempLabels.push(formatDate(new Date(tempdate)));
+     })
+     return tempLabels;
 }
 
 // Event-Listener hinzufügen, um die Anzeige bei Größenänderung des Fensters zu aktualisieren
-// window.addEventListener('resize', () => {
-//     // Aktualisiere den Chart, um die neuen Datumsformate zu berücksichtigen
-//     chart.data.labels = labels.map(label => formatDate(new Date(label)));
-//     chart.update();
-// });
+ window.addEventListener('resize', () => {
+     // Aktualisiere den Chart, um die neuen Datumsformate zu berücksichtigen
+     //chart.data.labels = chart.data.labels.map(label => formatDate(new Date(label)));
+    
+     chart.data.labels = getLabels(dateLabels);
+     chart.update();
+ });
+
 
 // Funktion zur Erstellung des Dropdowns
 function populateWeekDropdown() {
