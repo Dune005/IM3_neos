@@ -1,76 +1,62 @@
-# Der Reiseplaner für Raucher
-"Interaktive Medien II"
-Klasse MMP23c2
-Fachhochschule Graubünden
-02. Juni 2024
+# Astro Impact - Neuentdeckungen im All
+"Interaktive Medien III"<br>
+Klasse MMP23c<br>
+Fachhochschule Graubünden<br>
+17. Oktober 2024<br>
 
 
-Willkommen im Repository von "Der Reiseplaner für Raucher"
-Wir sind ein Team von drei begeisterten Entwicklern, Aaron Täschler, Claudio Riz und Simon Kuhn, und haben "Der Reiseplaner für Raucher" geschaffen, um dir die Reiseplanung zu vereinfachen.
+Willkommen im Repository von "Astro Impact"
+Wir sind ein Team von zwei begeisterten Entwicklern und Astro-Nerds, David Widmer und Claudio Riz. Mit "Astro-Impact" betreiben wir Datenforschung und finden heraus, welche NEOs (Near-Earth-Objects) von der NASA neuentdeckt wurden.
 
 ## Features
 
-Mit unserer Website kannst du:
+Auf unserer Webseite zeigen wir:
 
-- **Schnell und einfach Verbindungen zwischen beliebigen Schweizer Bahnhöfen und Haltestellen finden.** Gib einfach deinen Start- und Zielort ein, und wir zeigen dir alle verfügbaren Verbindungen.
-- **Detaillierte Informationen zu den Verbindungen einsehen.** Du siehst die Abfahrts- und Ankunftszeiten, die Dauer der Reise, die Anzahl der Umstiege, die benutzten Transportmittel und sogar die Bahnsteignummer.
-- **Raucherpausen optimal planen.** Unser System berechnet die Zeit, die du an jedem Zwischenhalt hast, und zeigt dir an, wo du genug Zeit für eine Rauchpause hast!
-
-Bei uns geht es um mehr als nur die reine Reiseplanung. Wir zielen darauf ab, den Rauchern das Leben etwas zu erleichtern. Als Raucher ist man oft bei längeren Reisen darauf angewiesen, bei den Zwischenstopps kurz eine rauchen zu können.
-
-Oftmals macht man sich vor oder während der Reise Gedanken, ob man wohl beim nächsten Zwischenhalt rauchen kann oder nicht. Unsere App nimmt dem User diese Arbeit ab, indem er auf den ersten Blick sieht, ob seine Reise eine Raucherpause zulässt, und wie lange diese dauert.
-
-Diese Information kann schon im Voraus die Routenplanung beeinflussen. Wähle die Route, die dir genügend lange Raucherpausen ermöglicht, und geniesse deine Reise mit der Gewissheit, dass du jederzeit eine entspannte Zigarette geniessen kannst.
-
-Unser Ziel ist es, dir eine benutzerfreundliche und informative Plattform zu bieten, die dir hilft, deine Reisen in der Schweiz komfortabel und stressfrei zu gestalten.
-
+- **Wie viele NEOs werden täglich entdeckt?** Ein Säulendiagramm zeigt die Anzahl an Neuentdeckungen. Beim Hovern über die einzelnen Säulen gibt es Zusatzinfos zu den einzelnen NEOs (Name, Distanz, Geschwindigkeit, etc.)
+- **Die fetteste Neuentdeckung der Woche:** Hier wird das NEO mit dem grössten Durchmesser in einer Info-Box angezeigt. Um eine Vorstellung von Geschwindigkeit und Distanz zu erhalten, siehst du, wie lange das Objekt bis zum Aufprall auf der Erde hätte, wenn es sich mit seiner Geschwindigkeit auf unseren Planeten zubewegen würde (was in Realität eigentlich nie der Fall ist.)
+- **Hintergrund-Informationen:** Wir informieren darüber, welche Objekte als NEO bezeichnet werden und was es mit dem Begriff "Close Approach" auf sich hat.
 
 ## Über das Projekt
-Der allerwichtigste Schritt war ohne Zweifel das definieren des Mehrwertes zur SBB App. Klar, man könnte einfach einen zweiten Fahrplan machen, aber dass kriegt man wohl kaum hin in dieser Zeit, noch bietet es einen Mehrwert. Deshalb sind wir überzeugt, dass das unsere Applikation mit den Rauchstopps einen grossen Mehrwert für uns Raucher bietet.
-
-## Warum ist unsere App sinnvoll?
-Den von kurzen Umsteigezeiten gepeinigten Rauchern wollen wir einen Mehrwert bieten: Nie mehr wieder musst du dich durch unzählige Informationen auf der SBB App ackern um herauszufinden, wo du deinen langersehnten Glimmstängel geniesen kannst. Mit unserer App weisst du schon im Vorhinein, welche Verbindung dir deine Suchtstimulation an welchem Ort erlaubt. Tief durchatmen, Zigi geniesen, und hopps in den nächsten Bus oder Zug steigen.
+Die Knacknuss war, wie wir aus den Daten der API https://ssd-api.jpl.nasa.gov/cad.api eine Data-Story kreieren können. Es handelt sich nämlich um berechnete Daten und nicht um Live-Daten, die sich dynamisch ändern. Wenn ein NEO entdeckt wird, integriert die NASA diesen mit statischen Daten in die API, fertig. Indem wir aber mithilfe unserer Datenbank herausfinden, welche NEOs neu in die Datenbank eingetragen werden, schaffen wir selbst die Live-Daten und haben damit das Potenzial für eine Data-Story.
 
 ## Vorgehen
-Zuerst erstellten wir auf Papier einen Plan um überhaupt zu wissen, welche Informationen wir wo abrufen müssen. Danach folgte das html Grundgerüst. Die wirkliche Arbeit begann im js-script: Die grösste Schwierigkeit bestand, aus dieser enormen Datenflut der SBB API die richtigen Daten zu fischen. Die Unterpunkte in der API sind oft gleich benannt, was dazu führte, dass wir zu Beginn oft die falschen Informationen kriegten. Der grösste Knackpunkt war das Anzeigen des Gleises, beziehungsweise die Umbennenung zu "Kante", sollte es sich um einen Bus handeln. Ebenso mussten wir nach dem Prinzip "kill your darlings" handeln und gewisse Informationen wieder rausstreichen, da sie shclicht nicht relevant waren für uns. Am Ende folgte die Stilisierung im CSS. Das darf man ohne zu leugnen las den gemütlichsten und befriedigsten Teil der Arbeit deklarieren, da es ab da so richtig an Form angenommen hat.
+1. Auf Papier und später mit Figma bauten wir ein <b>Mock-Up</b> unseres One-Pagers. Schnell wurde uns in groben Zügen klar, welche Daten wir wo anzeigen wollen.
+2. Grundgerüst im <b>html und css</b> bauen
+3. <b>ETL-Pipeline</b> erstellen: Hier ging es darum, die richtigen Daten in unsere Datenbank einzupflegen.
+- <i>Extract:</i> Wir rufen Daten für den Zeitraum vom aktuellen Tag bis 4 Jahre in die Zukunft ab. Hier sind auch "alte Daten" vorhanden, also NEOs, die schon vor längerer Zeit entdeckt wurden.
+- <i>Transform:</i> Hier bearbeiten wir die Daten. Dazu gehören Formatierungen (Datum) und Berechnungen. Einerseits rechnen wir die Distanz von AE (Astronomische Einheit) in Kilometer um. Andererseits berechnen wir den geschätzten Durchmesser des Objekts mit der benötigten physikalischen Formel, die dafür den Helligkeitswert (h) und den Albedo-Wert benötigt. Den Helligkeitswert erhalten wir dabei von unserer API. Für den Albedo-Wert nehmen wir eine Konstante von 0.2 an, weil unsere API diesen Wert nicht enthält. Unsere Recherchen haben aber ergeben, dass 0.2 ein vernünftiger Mittelwert für astronomische Objekte darstellt.
+- <i>Load:</i> Alle neuen Daten (welche potenziell Neuentdeckungen darstellen) werden in unsere Datenbank geladen. Wir haben dafür einen Crone-Job erstellt, der load.php jede Stunde ausführt, so entgeht uns mit Sicherheit keine Neuentdeckung des Tages und die Daten sind für die User in einem vernünftigen Mass aktuell.
+4. <b>Unload:</b> Dieser Schritt entscheidet darüber, welche NEOs in der Datenbank als Neuentdeckung gehandelt werden. Wir haben die SQL-Abfrage dafür wie folgt konfiguriert:
+- Alle Daten vom Erstimport werden exkludiert. Dieser Datensatz enthält zum allergrössten Teil "alte Daten".
+- Die offiziellen Namen der NEOs sind so konzipiert, dass das Entdeckungsjahr enthalten ist (z. B. 2024 BA1). Wir rufen mit unload.php nun nur diese NEOs ab, dessen erste 4 Zeichen des Namens mit dem Eintragsjahr in die Datenbank übereinstimmen. Als Beispiel: Am 17.10.2024 wird das NEO "2018 VC3" eingetragen. Dieses NEO ist zwar ein Neueintrag in der Datenbank, anhand seines Namens können wir aber ausschliessen, dass es sich dabei um eine Neuentdeckung handelt.
+5. <b>Javascript:</b>
+Das Javascript besteht aus folgenden Hauptteilen:
+- <i>Grafik:</i> Wir beziehen das Säulendiagramm von chartjs.org, designten es nach unseren Vorstellungen und befüllen es mit unseren Daten. Die Hauptdaten sind dabei der Timestamp, der Auskunft darüber gibt, wann eine Neuentdeckung gemacht wurde (=Zeitpunkt des Eintrag in die Datenbank) und die Anzahl an NEOs für diesen Timestamp (=Säulenhöhe). Mit dem Feature "tooltip" zeigen wir weitere Daten für alle Neuentdeckungen des jeweiligen Tags an.
+- <i>Abfrage des grössten NEOs für die Anzeige "fetteste Neuentdeckung der Woche":</i> Hier vergleichen wir den Durchmesser aller Neuentdeckungen der aktuellen Woche und lassen die Daten desjenigen NEOs mit dem grössten Durchmesser ausspielen und anzeigen.
+- <i>Datenauswahl für die letzten 5 Wochen:</i> Hier greifen wir mit "fetch" auf einen bestimmten Datumsbereich aus unload.php zu. Das dynamische Dropdown-Menü bestimmt dabei, um welchen Datumsbereich es sich handelt.
+- <i>Zusätzliche Formatierungsfunktionen:</i> Hauptsächlich geht es hier darum, die Anzeige von einem Datum zu verändern. Dies betrifft die Anzeige von Kalenderwochen, Wochentagen, und exakten Daten. Gerade die Berechnung der Kalenderwoche ist dabei komplexer als man denken könnte, aber Internet sei Dank mussten wir diese nicht selbst herausknobeln.
 
 ## Reflexion zum Projekt
-Das Programmierprojekt im Rahmen unseres Studiums war eine lehrreiche und herausfordernde Erfahrung, die uns als Team wachsen liess und unser Verständnis für die Arbeit mit APIs vertiefte.
+Das Programmierprojekt im Rahmen unseres Studiums war eine lehrreiche und herausfordernde Erfahrung, die uns als Team wachsen liess und unser Verständnis für die Arbeit mit APIs vertiefte und uns die Prozesse beim Verwenden von Datenbanken nahebrachte.
 
 ## Learnings und Herausforderungen
-Zu Beginn des Projekts war es eine Herausforderung, ein strukturiertes Vorgehen im Team zu finden, da jeder von uns an einem anderen Problem arbeitete. Es dauerte eine Weile, bis wir uns tiefer in das Projekt eingearbeitet hatten und effektiv zusammenarbeiten konnten. Durch die intensive Beschäftigung mit der Materie gelang es uns jedoch, unsere Arbeitsweise zu optimieren und das Projekt erfolgreich voranzutreiben.
+1. <i>Was ist eine Data-Story?:</i> Zu Beginn war für uns nicht ganz klar, welche Aspekte eine Datenanalyse berücksichtigen muss, um auch eine Data-Story zu sein. Wir wollten zuerst einfach die Daten aller NEOs auf einer Timeline anzeigen, die auf das Datum des Close Approaches zugreift. Uns war nicht bewusst, die Anzeige von statischen Daten noch keine Data-Story darstellt. Erst im Coaching mit Saumuel Rhyner wurde uns dies uns klar, woraufhin wir unser Konzept noch einmal überarbeiten mussten.
+2. <i>Wirkweise einer ETL-Pipeline:</i> Für unser erstes Konzept wäre eine eigene Datenbank gar nicht nötig gewesen, wir hätten auch direkt auf die API zugreifen können. Erst mit der zweiten Idee wurde sie überhaupt nötig. Dieses Projekt zeigte uns sehr verständlich auf, wofür eine ETL-Pipeline benötigt wird und wie sie aufgebaut werden kann.
+3. <i>"the little things":</i> Häufig sind es die kleinen Dinge, die viel mehr Arbeit verursachen, als man vermuten könnte. Ein Beispiel dafür ist die Anzeige der Wochentage. Beim breiten Bildschirm sollte die im Format "Do, 17.10.2024" angezeigt werden, bei schmaler Anzeige aus Design-Überlegungen nur noch "Do". Diese vermeintlich kleine Funktion in Javascript zu integrieren, beanspruchte mehrere Stunden.
+4. <i>Laufende Überprüfung:</i> Es bietet sich an, mit "echo" (php), resp. "console.log" (js) den Programmierungsfortschritt laufend zu überwachen. Auch bei auftretenden Fehlern trägt dies häufig zur Aufklärung bei.
 
-Ein weiterer wichtiger Lernprozess war der Umgang mit der API. Anfangs fühlte es sich an, als würden wir nur "Bahnhof" verstehen, wenn es um das Auslesen und Verarbeiten der Daten ging. Doch je mehr wir uns mit der API auseinandersetzten, desto mehr Spass bereitete es uns, tiefer in die Materie einzutauchen. Wir haben nun ein besseres Verständnis dafür, wie man solche Daten effizient nutzen kann.
-Für zukünftige Projekte ist es wichtig, dass wir uns nicht in zu spezifischen Details verlieren. Stattdessen sollten wir den Fokus auf die wesentlichen Aspekte legen und uns nicht in Nebensächlichkeiten verzetteln.
-
-## Schwierigkeiten und Verbesserungspotenzial
-Eine der grössten Herausforderungen bestand darin, mit der Fülle an Informationen umzugehen, die die API bereitstellte. Aufgrund der Vielzahl an unterschiedlichen Transportmitteln und Stationen war es uns nicht möglich, alle Daten so zu verarbeiten, wie wir es ursprünglich geplant hatten. Dies führte dazu, dass die angezeigten Routen möglicherweise nicht vollständig mit dem SBB Fahrplan übereinstimmen.
-
-Für zukünftige Projekte sollten wir uns im Vorfeld genauer überlegen, welche Informationen wir tatsächlich benötigen und wie wir diese am besten aufbereiten können. Durch eine sorgfältige Planung und Priorisierung können wir sicherstellen, dass die wichtigsten Aspekte korrekt dargestellt werden und etwaige Abweichungen minimiert werden.
-
-Insgesamt war das Programmierprojekt eine wertvolle Erfahrung, die uns nicht nur fachlich weitergebracht hat, sondern auch unsere Teamfähigkeit und Problemlösungskompetenz gestärkt hat. Wir sind zuversichtlich, dass wir die gewonnenen Erkenntnisse in zukünftigen Projekten erfolgreich anwenden werden.
-
+## Verbesserungs-/ Ausbaupotenzial
+Die Daten, die wir auf "Astro Impact" anzeigen, sind nicht allzu viele. Es gibt gar nicht so viele Neuentdeckungen (maximal 4, Stand 17.10.2024), zusätzlich ist der Datensatz mit Distanz, Geschwindigkeit, Durchmesser und Close-Approach-Datum ziemlich überschaubar. Hier böte sich im Anzapfen weiterer APIs ein Ausbaupotenzial. Möglicherweise könnte dort mehr über diese NEOs erfahren werden, vorausgesetzt die Daten sind anhand beispielsweise anhand des Namens eindeutig einander zuzuordnen. Eventuell gäbe es Bilder davon. Eine weitere Ausbaumöglichkeit bestünde darin, die Daten für sogenannte NEAs (Near Earth Asteroids) in einer Sub-Page anzuzeigen. Diese sind in der Regel weiter von der Erde entfernt als unsere NEOs und werden in unserer Datenabfrage nicht erfasst.
 
 ## Teamarbeit
-
-Der Raucher-Reiseplaner entstand durch die Zusammenarbeit unseres dreiköpfigen Teams, in dem jeder seine individuellen Stärken einbrachte. Claudio war mit seiner Expertise verantwortlich für die reibungslose technische Umsetzung des Projekts. Aaron verlieh unserem Projekt die nötige Würze was die benutzerfreundlichkeit und Gestaltung betrifft. Simon, mit seiner Erfahrung im Marketing, kümmerte sich um die Teamseite und das Kontaktformular.
-
-Style: Es war unser bestreben, die Seite möglichst "slick" und "clean" zu halten. Deshalb verzichteten wir auf grosse Spielereien und haben uns an einer professionellen Darstellung wie die des SBB Apps gehalten. Responsiv sind gewisse Schriften, Buttons und die div Boxen.
-
-Validierung: Nachdem die Seiten erstellt waren, haben wir sie sorgfältig validiert. Wir haben sicherzustellen versucht, dass der HTML- und CSS-Code fehlerfrei und standardkonform ist.
-
-Feinschliff: Zum Abschluss haben wir unsere Seiten einem Feinschliff unterzogen, dass alle Elemente gut platziert und gestaltet sind. Darüber hinaus haben wir sicherzustellen versucht, dass die Webseite auf verschiedenen Bildschirmgrössen und Geräten gut aussieht.
-
-Durch die koordinierte Zusammenarbeit und die klare Aufgabenverteilung konnten wir den Raucher-Reiseplaner erfolgreich entwickeln.
-
-
+Während wir die Aufgaben "Texterstellung" und "Design" aufgeteilt haben, beschäftigten wir uns "gleichberechtigt" mit dem Programming. Um dabei unnötige Doppelspurigkeiten und Programmkonflikte zu verhindern, achteten wir darauf, dass jeweils nur jemand am gleichen File arbeitete. Um gleichzeitig an Lösungen für das gleiche Problem zu arbeiten, erstellten wir subfiles wie beispielsweise test_dw.html.
+Auf menschlicher Ebene war es eine sehr gelungene Teamarbeit. Durch einen kreativen Austausch fanden wir gemeinsam Lösungen, auf die wir alleine wohl nicht gekommen wären.
 
 ## Projektverwaltung und Beitragende
 Das Projekt wird von einem engagierten Team geleitet:
 
-- **Aaron Täschler:** Design & Programming <a href="https://github.com/NarronTheNarr">@Dune005</a> <br>
-- **Claudio Riz:** Design & Programming <a href="https://github.com/Dune005">@NarronTheNarr</a> <br>
-- **Simon Kuhn:** Design & Programming <a href="https://github.com/SHISHAYOLO">@SHISHAYOLO</a> <br>
+- **Claudio Riz:** Design & Programming <a href="https://github.com/Dune005">@Dune005</a> <br>
+- **David Widmer:** Texte & Programming <a href="https://github.com/dwidmer87">@dwidmer87</a> <br>
 
 ## Hilfsmittel
 Folgende Hilfsmittel wurden verwendet:
@@ -78,13 +64,9 @@ Folgende Hilfsmittel wurden verwendet:
 - YouTube-Tutorials
 - ChatGPT
 - GitHub Copilot
-- BLACKBOX AI
-- w3schools.com
 
 ## Dank
 Einen grossen Dank wollen wir unseren Dozenten ausprechen:
 - Wolfgang Bock
-- Jan Fiess
-- Alen Doko
-- Nils Solanki
-- Nina Grössli
+- Lea Moser
+- Samuel Rhyner
