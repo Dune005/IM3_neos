@@ -220,9 +220,9 @@ function getApiData(url, startDate, endDate) {
             dateLabels = [];
             // Erstelle Labels und fülle Daten für jeden Tag im ausgewählten Zeitraum
             while (currentDate <= endDate) {
-                let abc = "" + currentDate;
-                console.log('abc', abc);
-                dateLabels.push(abc);
+                let aktuellesDatum = "" + currentDate;
+                console.log('aktuellesDatum', aktuellesDatum);
+                dateLabels.push(aktuellesDatum);
                 labels = getLabels(dateLabels);
                 let count = neoData.filter(neo => {
                     let neoDate = new Date(neo.timestamp);
