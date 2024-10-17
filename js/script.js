@@ -351,6 +351,3 @@ document.addEventListener('DOMContentLoaded', () => {
     getApiData(apiUrl, last7DaysStart, today);
     populateWeekDropdown();
 });
-
-
-
