@@ -14,7 +14,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Abfrage der NEO-Daten für die letzten 7 Tage
-    $sql = "SELECT name, distance, velocity, estimated_diameter, timestamp 
+    $sql = "SELECT name, distance, velocity, estimated_diameter, timestamp, date 
             FROM neosWithCloseApproach 
             WHERE timestamp >= CURDATE() - INTERVAL 40 DAY
             AND DATE(timestamp) != '2024-10-09'

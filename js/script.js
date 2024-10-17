@@ -19,11 +19,18 @@ chart = new Chart(ctx, {
                 label: "Anzahl der neuen NEOs",
                 data: neoCountPerDay,
                 borderColor: 'rgba(75, 192, 192, 1)',
-                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                backgroundColor: function(context) {
+                    const index = context.dataIndex;
+                    const label = context.chart.data.labels[index];
+                    return label === 'Heute' ? 'rgba(255, 0, 0, 0.5)' : 'rgba(75, 192, 192, 0.1)';  },
                 borderWidth: 1,
                 borderRadius: 5,
                 borderSkipped: false,
-                hoverBackgroundColor: 'rgba(75, 192, 192, 0.5)', // Highlight color on hover
+                hoverBackgroundColor: function(context) {
+                    const index = context.dataIndex;
+                    const label = context.chart.data.labels[index];
+                    return label === 'Heute' ? 'rgba(255, 0, 0, 0.7)' : 'rgba(75, 192, 192, 0.5)';
+                },
                 hoverBorderColor: 'rgba(75, 192, 192, 1)', // Border color on hover
                 hoverBorderWidth: 2, // Border width on hover
             },
@@ -67,6 +74,14 @@ chart = new Chart(ctx, {
             },
         },
         plugins: {
+            legend: {
+                labels: {
+                    font: {
+                        size: 14, // Schriftgröße des Labels "Anzahl der neuen NEOs"
+                    },
+                    color: 'white', // Farbe des Labels
+                },
+            },
             tooltip: {
                 callbacks: {                    
                     label: function (context) {
@@ -82,7 +97,7 @@ chart = new Chart(ctx, {
                         if (neosForDay.length > 0) {
                             return neosForDay.map(neo => {
                                 const diameter = neo.estimated_diameter || 'unbekannt';
-                                return `Name: ${neo.name}, Distanz: ${formatNumber(neo.distance)} km, Geschwindigkeit: ${neo.velocity.toFixed(2)} km/s, Durchmesser: ${diameter.toFixed(1)} m`;
+                                return `${neo.name}, Distanz: ${formatNumber(neo.distance)} km, ${neo.velocity.toFixed(2)} km/s, Durchmesser: ${diameter.toFixed(1)} m, Close Approach am: ${formatDateCA(neo.date)}`;
                             });
                         } else {
                             return `Keine NEO-Daten für diesen Tag`;
@@ -153,6 +168,12 @@ console.log(biggestNeo);
         document.getElementById('distance').textContent = formatNumber(biggestNeo.distance);
         document.getElementById('velocity').textContent = biggestNeo.velocity.toFixed(2);
         document.getElementById('estimated_diameter').textContent = Number(biggestNeo.estimated_diameter).toFixed(1);
+        document.getElementById('close_approach_date').textContent = formatDateCA(biggestNeo.date);
+
+        // Formatierte Datum des CloseApproach einfügen
+        const formattedDateCA = formatDateCA(biggestNeo.date);
+        document.getElementById('close_approach_date').textContent = formattedDateCA;
+
 
         // Zeit berechnen, wie lange das Objekt bräuchte, um die Erde zu erreichen
         const time = Math.round((biggestNeo.distance / biggestNeo.velocity) / 3600); // Zeit in Stunden
@@ -170,9 +191,15 @@ console.log(biggestNeo);
 
 
 
-
-
-
+// Funktion zur Formatierung des Datums vom Datum des CloseApproach
+function formatDateCA(date) {
+    const neoDate = new Date(date);
+    return neoDate.toLocaleDateString('de-DE', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric'
+    });
+}
 
 
 
@@ -277,11 +304,11 @@ function formatDate(date) {
 }
 
 // Event-Listener hinzufügen, um die Anzeige bei Größenänderung des Fensters zu aktualisieren
-window.addEventListener('resize', () => {
-    // Aktualisiere den Chart, um die neuen Datumsformate zu berücksichtigen
-    chart.data.labels = labels.map(label => formatDate(new Date(label)));
-    chart.update();
-});
+// window.addEventListener('resize', () => {
+//     // Aktualisiere den Chart, um die neuen Datumsformate zu berücksichtigen
+//     chart.data.labels = labels.map(label => formatDate(new Date(label)));
+//     chart.update();
+// });
 
 // Funktion zur Erstellung des Dropdowns
 function populateWeekDropdown() {
