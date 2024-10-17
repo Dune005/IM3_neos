@@ -5,7 +5,7 @@ Fachhochschule Graubünden<br>
 17. Oktober 2024<br>
 
 
-Willkommen im Repository von "Astro Impact"
+Willkommen im Repository von "Astro Impact"!<br>
 Wir sind ein Team von zwei begeisterten Entwicklern und Astro-Nerds, David Widmer und Claudio Riz. Mit "Astro-Impact" betreiben wir Datenforschung und finden heraus, welche NEOs (Near-Earth-Objects) von der NASA neuentdeckt wurden.
 
 ## Features
@@ -40,13 +40,13 @@ Das Javascript besteht aus folgenden Hauptteilen:
 Das Programmierprojekt im Rahmen unseres Studiums war eine lehrreiche und herausfordernde Erfahrung, die uns als Team wachsen liess und unser Verständnis für die Arbeit mit APIs vertiefte und uns die Prozesse beim Verwenden von Datenbanken nahebrachte.
 
 ## Learnings und Herausforderungen
-1. <i>Was ist eine Data-Story?:</i> Zu Beginn war für uns nicht ganz klar, welche Aspekte eine Datenanalyse berücksichtigen muss, um auch eine Data-Story zu sein. Wir wollten zuerst einfach die Daten aller NEOs auf einer Timeline anzeigen, die auf das Datum des Close Approaches zugreift. Uns war nicht bewusst, die Anzeige von statischen Daten noch keine Data-Story darstellt. Erst im Coaching mit Saumuel Rhyner wurde uns dies uns klar, woraufhin wir unser Konzept noch einmal überarbeiten mussten.
+1. <i>Was ist eine Data-Story?:</i> Zu Beginn war für uns nicht ganz klar, welche Aspekte eine Datenanalyse berücksichtigen muss, um auch eine Data-Story zu sein. Wir wollten zuerst einfach die Daten aller NEOs auf einer Timeline anzeigen, die auf das Datum des Close Approaches zugreift. Uns war nicht bewusst, die Anzeige von statischen Daten noch keine Data-Story darstellt. Erst im Coaching mit Samuel Rhyner wurde uns dies uns klar, woraufhin wir unser Konzept noch einmal überarbeiten mussten.
 2. <i>Wirkweise einer ETL-Pipeline:</i> Für unser erstes Konzept wäre eine eigene Datenbank gar nicht nötig gewesen, wir hätten auch direkt auf die API zugreifen können. Erst mit der zweiten Idee wurde sie überhaupt nötig. Dieses Projekt zeigte uns sehr verständlich auf, wofür eine ETL-Pipeline benötigt wird und wie sie aufgebaut werden kann.
 3. <i>"the little things":</i> Häufig sind es die kleinen Dinge, die viel mehr Arbeit verursachen, als man vermuten könnte. Ein Beispiel dafür ist die Anzeige der Wochentage. Beim breiten Bildschirm sollte die im Format "Do, 17.10.2024" angezeigt werden, bei schmaler Anzeige aus Design-Überlegungen nur noch "Do". Diese vermeintlich kleine Funktion in Javascript zu integrieren, beanspruchte mehrere Stunden.
 4. <i>Laufende Überprüfung:</i> Es bietet sich an, mit "echo" (php), resp. "console.log" (js) den Programmierungsfortschritt laufend zu überwachen. Auch bei auftretenden Fehlern trägt dies häufig zur Aufklärung bei.
 
 ## Verbesserungs-/ Ausbaupotenzial
-Die Daten, die wir auf "Astro Impact" anzeigen, sind nicht allzu viele. Es gibt gar nicht so viele Neuentdeckungen (maximal 4, Stand 17.10.2024), zusätzlich ist der Datensatz mit Distanz, Geschwindigkeit, Durchmesser und Close-Approach-Datum ziemlich überschaubar. Hier böte sich im Anzapfen weiterer APIs ein Ausbaupotenzial. Möglicherweise könnte dort mehr über diese NEOs erfahren werden, vorausgesetzt die Daten sind anhand beispielsweise anhand des Namens eindeutig einander zuzuordnen. Eventuell gäbe es Bilder davon. Eine weitere Ausbaumöglichkeit bestünde darin, die Daten für sogenannte NEAs (Near Earth Asteroids) in einer Sub-Page anzuzeigen. Diese sind in der Regel weiter von der Erde entfernt als unsere NEOs und werden in unserer Datenabfrage nicht erfasst.
+Die Daten, die wir auf "Astro Impact" anzeigen, sind nicht allzu viele. Es gibt gar nicht so viele Neuentdeckungen (maximal 4, Stand 17.10.2024), zusätzlich ist der Datensatz mit Distanz, Geschwindigkeit, Durchmesser und Close-Approach-Datum ziemlich überschaubar. Hier böte sich im Anzapfen weiterer APIs ein Ausbaupotenzial. Möglicherweise könnte dort mehr über diese NEOs erfahren werden, vorausgesetzt die Daten sind anhand beispielsweise anhand des Namens eindeutig einander zuzuordnen. Eventuell gäbe es Bilder von den NEOs. Eine weitere Ausbaumöglichkeit bestünde darin, die Daten für sogenannte NEAs (Near Earth Asteroids) in einer Sub-Page anzuzeigen. Diese sind in der Regel weiter von der Erde entfernt als unsere NEOs und werden in unserer Datenabfrage nicht erfasst.
 
 ## Teamarbeit
 Während wir die Aufgaben "Texterstellung" und "Design" aufgeteilt haben, beschäftigten wir uns "gleichberechtigt" mit dem Programming. Um dabei unnötige Doppelspurigkeiten und Programmkonflikte zu verhindern, achteten wir darauf, dass jeweils nur jemand am gleichen File arbeitete. Um gleichzeitig an Lösungen für das gleiche Problem zu arbeiten, erstellten wir subfiles wie beispielsweise test_dw.html.
